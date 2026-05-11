@@ -213,16 +213,19 @@ function updatePreRace() {
 function updateCadence() {
   const now = Date.now();
   while (pressTimestamps.length > 0 && now - pressTimestamps[0] > 2000) pressTimestamps.shift();
+  let needleInput;
   if (pressTimestamps.length >= 2) {
     const span = pressTimestamps[pressTimestamps.length - 1] - pressTimestamps[0];
     const raw = (pressTimestamps.length - 1) / (span / 1000);
     const msSinceLast = now - pressTimestamps[pressTimestamps.length - 1];
     const avgInterval = span / (pressTimestamps.length - 1);
     currentCadence = msSinceLast > avgInterval * 1.2 ? Math.max(0, raw * avgInterval / msSinceLast) : raw;
+    needleInput = raw;
   } else {
     currentCadence = Math.max(0, currentCadence - 0.04 * dt);
+    needleInput = currentCadence;
   }
-  needleTarget += (Math.min(currentCadence / CADENCE_MAX, 1) - needleTarget) * 0.07 * dt;
+  needleTarget += (Math.min(needleInput / CADENCE_MAX, 1) - needleTarget) * 0.07 * dt;
   needlePos    += (needleTarget - needlePos) * 0.18 * dt;
 }
 
