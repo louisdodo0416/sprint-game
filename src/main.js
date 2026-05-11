@@ -760,6 +760,7 @@ function drawTitleScreen() {
     ['CLICK', 'React to the starting gun'],
     ['A / D',  'Alternate to sprint'],
     ['SPACE',  'Lean at the finish line'],
+    ['R',      'Restart at any time'],
   ];
   const badgeCx = cx - 165, badgeW = 90, badgeH = 27;
   const descX = cx - 107;
